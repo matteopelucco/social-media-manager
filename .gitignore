@@ -1,0 +1,23 @@
+# Segreti
+.env
+config.yaml
+*.pem
+*.key
+*credenziali*
+
+# Contenuti generati: restano solo sul computer di chi li produce (la struttura sì, i contenuti no)
+campagne/*
+!campagne/.gitkeep
+luino-notizie/*
+!luino-notizie/.gitkeep
+calendario.md
+social-esito.json
+
+# Archivi e file di lavoro
+*.zip
+__pycache__/
+*.pyc
+.venv/
+~$*
+desktop.ini
+.claude/settings.local.json

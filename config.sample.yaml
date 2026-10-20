@@ -1,0 +1,18 @@
+# Reference delle chiavi di config.yaml. Contiene SOLO segnaposto: nessun valore reale.
+# Per usarlo: copia questo file in config.yaml e sostituisci ogni INSERISCI_... con il valore vero.
+# Formato piatto "chiave: valore" (niente liste o blocchi annidati).
+# Le variabili d'ambiente indicate hanno la precedenza sul file.
+# MANTENERE AGGIORNATO: ogni nuova chiave letta da uno script va aggiunta qui (vedi CLAUDE.md).
+
+# --- WordPress (scripts/publish_post.py) ---------------------------------
+wp_url: https://www.asilosartorio.it        # env: WP_URL — deve iniziare con https://
+wp_user: INSERISCI_UTENTE_WORDPRESS         # env: WP_USER — consigliato utente dedicato (ruolo Autore)
+wp_app_password: INSERISCI_APPLICATION_PASSWORD   # env: WP_APP_PASSWORD — Application Password, non la password di accesso
+categoria_default: avvisi                   # opzionale — slug categoria usato se manca --category
+categoria_slider: slider                    # opzionale — slug categoria del carosello in home (--slider)
+
+# --- Facebook / Instagram (scripts/publish_social.py) --------------------
+fb_page_id: INSERISCI_ID_PAGINA_FACEBOOK    # env: FB_PAGE_ID
+fb_page_token: INSERISCI_TOKEN_PAGINA       # env: FB_PAGE_TOKEN — token di lunga durata della Pagina
+ig_user_id: INSERISCI_ID_ACCOUNT_INSTAGRAM  # env: IG_USER_ID — account Business/Creator collegato alla Pagina
+graph_version: v23.0                        # opzionale, env: GRAPH_VERSION — versione Graph API (default v23.0; da verificare nel tempo)

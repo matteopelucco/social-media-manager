@@ -1,0 +1,5 @@
+# Dipendenze Python del progetto (Python 3.8 o superiore).
+# Installazione:  python -m pip install --user -r requirements.txt
+# (--user: le librerie vanno nel profilo dell'utente, non dentro la cartella su Drive)
+requests>=2.28    # WordPress, Facebook, Instagram (scripts/publish_*.py, upload_media.py)
+Pillow>=10.0      # solo per convertire le immagini in JPEG (scripts/to_jpeg.py)
