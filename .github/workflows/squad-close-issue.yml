@@ -1,0 +1,29 @@
+name: Squad close issue
+
+# Alla chiusura "completed" di una issue sostituisce le label status:* con status:done.
+# Nessun modello: solo `gh issue edit`.
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  issues: write
+
+jobs:
+  done:
+    if: github.event.issue.state_reason == 'completed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      - name: Replace status labels with status:done
+        run: |
+          set -eu
+          for label in $(gh issue view "$ISSUE" --json labels -q '.labels[].name' | grep '^status:' || true); do
+            [ "$label" = "status:done" ] || gh issue edit "$ISSUE" --remove-label "$label"
+          done
+          gh issue edit "$ISSUE" --add-label status:done
