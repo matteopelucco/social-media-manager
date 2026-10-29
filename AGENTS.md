@@ -57,6 +57,7 @@ CLAUDE.md  README.md  calendario.md (locale)  requirements.txt
 config.yaml (segreto)  config.sample.yaml  .env.example  .gitignore
 docs/            setup-wordpress.md, setup-meta.md (guide di installazione e manutenzione), piano-webapp.md, bootstrap-progetto.md, adr/ (decisioni)
 .github/         workflow (CI `verifica`, triage, chiusura issue), template di issue e PR, ruleset di `main`
+avvia-sheepper.cmd  avvio con doppio clic della web app su Windows (controlla Node 22+, npm ci, build, browser, `npm run start`)
 scripts/*.sh     setup-labels, setup-project, apply-ruleset, classify-changes (framework my-ai-squad)
 scripts/run-vitest.mjs  avvia Vitest con la lettera di unità maiuscola (su Windows c: minuscola fa fallire i test); usato da `npm run test:unit`
 brand/           linee-guida.md, hashtag.md, logo/ (logo-rosso.png principale, logo-blu.png)
