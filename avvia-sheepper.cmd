@@ -9,6 +9,7 @@ echo.
 where node >nul 2>nul
 if errorlevel 1 goto nonode
 
+set "NODE_MAJOR="
 for /f %%v in ('node -p "process.versions.node.split('.')[0]"') do set NODE_MAJOR=%%v
 if not defined NODE_MAJOR goto nonode
 if %NODE_MAJOR% LSS 22 goto oldnode
@@ -37,7 +38,15 @@ if /i "%SHEEPPER_NO_BROWSER%"=="1" goto startserver
 start "" /b cmd /c "ping -n 4 127.0.0.1 >nul & start "" http://127.0.0.1:3000"
 :startserver
 call npm run start
+if errorlevel 1 goto servfail
 goto end
+
+:servfail
+echo.
+echo ERRORE: Sheepper si e' fermato in modo inatteso.
+echo Controlla che la porta 3000 non sia gia' usata da un altro programma
+echo (per esempio un'altra finestra di Sheepper) e riprova.
+goto fail
 
 :nonode
 echo ERRORE: Node.js non e' installato.
