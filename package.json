@@ -11,7 +11,7 @@
     "start": "next start -H 127.0.0.1 -p 3000",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "test:unit": "vitest run",
+    "test:unit": "node scripts/run-vitest.mjs run",
     "analyze": "npm run lint && npm run typecheck && npm run test:unit"
   },
   "dependencies": {

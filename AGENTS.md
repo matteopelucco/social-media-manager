@@ -59,6 +59,7 @@ docs/            setup-wordpress.md, setup-meta.md (guide di installazione e man
 .github/         workflow (CI `verifica`, triage, chiusura issue), template di issue e PR, ruleset di `main`
 avvia-sheepper.cmd  avvio con doppio clic della web app su Windows (controlla Node 22+, npm ci, build, browser, `npm run start`)
 scripts/*.sh     setup-labels, setup-project, apply-ruleset, classify-changes (framework my-ai-squad)
+scripts/run-vitest.mjs  avvia Vitest con la lettera di unità maiuscola (su Windows c: minuscola fa fallire i test); usato da `npm run test:unit`
 brand/           linee-guida.md, hashtag.md, logo/ (logo-rosso.png principale, logo-blu.png)
 campagne/AAAA-nome/   brief.md, testi/, immagini/, checklist.md, esito.md, social-esito.json (scritto dallo script)
 luino-notizie/   AAAA-nome-campagna.md (mail pronta, spedita a mano)
