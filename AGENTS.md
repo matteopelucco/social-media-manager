@@ -64,6 +64,7 @@ campagne/AAAA-nome/   brief.md, testi/, immagini/, checklist.md, esito.md, socia
 luino-notizie/   AAAA-nome-campagna.md (mail pronta, spedita a mano)
 templates/       calendario.md, brief.md, articolo-blog.html, post-social.md, whatsapp-famiglie.md, email-luino-notizie.md, checklist.md, esito.md
 app/ lib/ components/   web app Sheepper (Next.js 16, TypeScript, Tailwind 4); package.json, tsconfig.json, eslint.config.mjs, vitest.config.ts alla radice
+proxy.ts  lib/security/   protezione dell'app locale: controllo di Host e Origin, header di sicurezza e CSP con nonce (logica pura in `lib/security/`; ADR 0003)
 scripts/         _common.py, check_setup.py, stato_campagne.py, publish_post.py, publish_social.py, to_jpeg.py, upload_media.py, test_deepseek.py
 .claude/agents/  .claude/commands/
 ```
