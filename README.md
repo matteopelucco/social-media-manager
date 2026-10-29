@@ -148,3 +148,13 @@ Il repository contiene **solo gli strumenti**: `scripts/`, `.claude/`, `template
 - `calendario.md` è una ricostruzione da sito e archivio: le date sono **indicative** e vanno verificate.
 - **Titolo e riassunto WordPress:** brevissimi (titolo max 4 parole, estratto 3-4 parole); `publish_post.py` rifiuta testi più lunghi.
 - **Possibili sviluppi:** programmazione dei post, modello di rendiconto post-evento, Instagram Stories e Reels, cartella `immagini/` con ritaglio automatico per formato.
+
+## 9. Avvio della web app in locale
+Lo scheletro della web app Sheepper (Next.js 16) sta alla radice del repository. Per ora mostra solo una pagina segnaposto: **gli script Python restano lo strumento operativo**.
+
+1. Serve Node 22 o più recente.
+2. `npm install`
+3. `npm run dev`
+4. Apri http://127.0.0.1:3000 (il server ascolta solo sul tuo computer).
+
+Controlli: `npm run analyze` (lint, typecheck, test); `npm run build` per la build di produzione. Dettagli in `docs/adr/0002-web-app-locale-nextjs-e-filesystem.md` e `docs/piano-webapp.md`.
