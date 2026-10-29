@@ -21,3 +21,12 @@ __pycache__/
 ~$*
 desktop.ini
 .claude/settings.local.json
+
+# Web app (Node / Next.js)
+node_modules/
+.next/
+next-env.d.ts
+coverage/
+config.yaml.bak
+*.tsbuildinfo
+.env*.local
