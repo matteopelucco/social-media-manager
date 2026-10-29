@@ -55,7 +55,9 @@ Catena per Instagram: `to_jpeg.py` → (ok) `upload_media.py` → `publish_socia
 ```
 CLAUDE.md  README.md  calendario.md (locale)  requirements.txt
 config.yaml (segreto)  config.sample.yaml  .env.example  .gitignore
-docs/            setup-wordpress.md, setup-meta.md (guide di installazione e manutenzione)
+docs/            setup-wordpress.md, setup-meta.md (guide di installazione e manutenzione), piano-webapp.md, bootstrap-progetto.md, adr/ (decisioni)
+.github/         workflow (CI `verifica`, triage, chiusura issue), template di issue e PR, ruleset di `main`
+scripts/*.sh     setup-labels, setup-project, apply-ruleset, classify-changes (framework my-ai-squad)
 brand/           linee-guida.md, hashtag.md, logo/ (logo-rosso.png principale, logo-blu.png)
 campagne/AAAA-nome/   brief.md, testi/, immagini/, checklist.md, esito.md, social-esito.json (scritto dallo script)
 luino-notizie/   AAAA-nome-campagna.md (mail pronta, spedita a mano)
@@ -74,6 +76,22 @@ scripts/         _common.py, check_setup.py, stato_campagne.py, publish_post.py,
 
 ## Repository git
 Il progetto è un repository: versionati solo gli strumenti (scripts, `.claude/`, templates, brand, docs, config.sample.yaml, .env.example). **Mai** in git: `config.yaml`, `.env`, `campagne/*`, `luino-notizie/*`, `calendario.md`, `*.zip` (vedi `.gitignore`). Prima di ogni commit controlla `git status`; commit e push solo su richiesta dell'utente. Un'installazione nuova deve partire con: clone → `pip install -r requirements.txt` → `config.yaml` da `config.sample.yaml` → `check_setup.py`. Se aggiungi un file che serve a una installazione nuova, assicurati che non sia ignorato.
+
+## Squadra di agenti (my-ai-squad)
+
+Il progetto adotta il framework [my-ai-squad](https://github.com/matteopelucco/my-ai-squad) (v0.4.0): agenti, skill e guardrail vengono dal plugin `squad-core` (`/squad-core:work-on-issue`, `/squad-core:next-task`, …); perimetri di scrittura, comandi di verifica e modalità di merge sono in `.claude/squad.json`. Gli agenti `marketing-strategist` e `social-publisher` e i comandi `/nuova-campagna`, `/pubblica-*`, `/stato`, `/verifica`, `/calendario` sono **specifici del dominio** e restano in `.claude/`. Decisione e scostamenti dal template: [ADR 0001](docs/adr/0001-adozione-my-ai-squad.md).
+
+### Regole di sviluppo
+- Backlog = GitHub Issues di questo repository. Una issue alla volta, branch `<tipo>/<n>-slug`, PR verso `main`. **Mai commit o push su `main`** (l'unica eccezione è il primo caricamento della storia esistente sul remoto, deciso dall'utente).
+- Titoli di issue e PR: `<tipo>(<ambito>): <descrizione>` (Conventional Commits). Codice, identificatori e commit in inglese; documenti, issue e PR in italiano.
+- Repository pubblico: niente segreti, niente dati reali o personali, nemmeno nelle fixture. `config.yaml` e `.env*` non si leggono (regola `deny` in `.claude/settings.json`).
+- Una decisione architetturale nuova o cambiata → ADR in `docs/adr/`.
+- Il merge delle PR è sempre dell'utente (`mergeMode: human`): gli agenti aprono la PR in bozza e si fermano.
+- Le issue `status:ready` si lavorano per priorità del Project (più in alto = prima); a parità, prima i `type:bug`.
+
+### Controlli
+- Rapidi (a fine lavoro) e completi (prima della PR): `python -B -c "import ast,glob;[ast.parse(open(f,encoding='utf-8').read()) for f in glob.glob('scripts/*.py')]"` (controllo di sintassi degli script; `.claude/squad.json` è la fonte). La CI (`.github/workflows/ci.yml`, job `verifica`) esegue lo stesso comando sulle PR che toccano codice e lo salta se cambiano solo documenti.
+- La PR riporta comando ed esito dei controlli e ciò che non è stato verificato.
 
 ## Setup standard di progetto e web app Sheepper
 

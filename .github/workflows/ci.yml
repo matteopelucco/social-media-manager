@@ -1,0 +1,41 @@
+name: CI
+
+# Il job `verifica` è il gate richiesto dal ruleset di `main`: riporta sempre un esito.
+# Le PR che toccano solo documenti saltano i controlli completi.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Classify changes
+        id: changes
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: echo "kind=$(scripts/classify-changes.sh "${BASE:-HEAD~1}")" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-python@v5
+        if: steps.changes.outputs.kind == 'code'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        if: steps.changes.outputs.kind == 'code'
+        with:
+          node-version: 22
+      - name: Full checks
+        if: steps.changes.outputs.kind == 'code'
+        run: |
+          cmd="$(node -p "const c=require('./.claude/squad.json'); c.verifyFull || c.verify || ''")"
+          if [ -z "$cmd" ]; then echo "Nessun comando di verifica configurato in .claude/squad.json"; exit 0; fi
+          echo "+ $cmd"
+          bash -c "$cmd"

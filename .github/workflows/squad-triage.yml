@@ -1,0 +1,39 @@
+name: Squad triage
+
+# Triage automatico delle issue aperte da collaboratori (ADR-0011).
+# Autenticazione (ADR-0012): imposta UNO dei due segreti del repository,
+# CLAUDE_CODE_OAUTH_TOKEN (abbonamento) oppure ANTHROPIC_API_KEY (chiave API).
+
+on:
+  issues:
+    types: [opened]
+
+concurrency:
+  group: squad-triage-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write
+
+jobs:
+  triage:
+    # Solo autori fidati: le issue di esterni non partono (prompt injection).
+    if: contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          plugin_marketplaces: https://github.com/matteopelucco/my-ai-squad.git
+          plugins: squad-core@my-ai-squad
+          claude_args: >-
+            --model haiku --max-turns 12
+            --allowedTools "Read,Grep,Glob,Write,Bash(gh issue view:*),Bash(gh issue comment:*),Bash(gh issue edit:*),Bash(gh label list:*)"
+          prompt: |
+            Agisci come l'agente squad-core:triage sulla issue numero ${{ github.event.issue.number }} di questo repository.
+            Segui le sue istruzioni alla lettera. Un solo commento di triage, conciso.
