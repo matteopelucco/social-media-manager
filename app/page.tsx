@@ -1,6 +1,9 @@
+import { connection } from "next/server";
 import { cn } from "@/lib/utils";
 
-export default function Home() {
+export default async function Home() {
+  // Pagina dinamica: serve per applicare il nonce della CSP a ogni richiesta.
+  await connection();
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center">
       <h1 className={cn("text-4xl font-semibold tracking-tight text-brand")}>

@@ -157,4 +157,6 @@ Lo scheletro della web app Sheepper (Next.js 16) sta alla radice del repository.
 3. `npm run dev`
 4. Apri http://127.0.0.1:3000 (il server ascolta solo sul tuo computer).
 
+L'app risponde solo da questo computer: richieste con Host o Origin non locali ricevono 403 (ADR 0003).
+
 Controlli: `npm run analyze` (lint, typecheck, test); `npm run build` per la build di produzione. Dettagli in `docs/adr/0002-web-app-locale-nextjs-e-filesystem.md` e `docs/piano-webapp.md`.
