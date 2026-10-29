@@ -32,6 +32,10 @@ jobs:
         if: steps.changes.outputs.kind == 'code'
         with:
           node-version: 22
+          cache: npm
+      - name: Install dependencies
+        if: steps.changes.outputs.kind == 'code'
+        run: npm ci
       - name: Full checks
         if: steps.changes.outputs.kind == 'code'
         run: |

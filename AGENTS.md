@@ -58,10 +58,12 @@ config.yaml (segreto)  config.sample.yaml  .env.example  .gitignore
 docs/            setup-wordpress.md, setup-meta.md (guide di installazione e manutenzione), piano-webapp.md, bootstrap-progetto.md, adr/ (decisioni)
 .github/         workflow (CI `verifica`, triage, chiusura issue), template di issue e PR, ruleset di `main`
 scripts/*.sh     setup-labels, setup-project, apply-ruleset, classify-changes (framework my-ai-squad)
+scripts/run-vitest.mjs  avvia Vitest con la lettera di unità maiuscola (su Windows c: minuscola fa fallire i test); usato da `npm run test:unit`
 brand/           linee-guida.md, hashtag.md, logo/ (logo-rosso.png principale, logo-blu.png)
 campagne/AAAA-nome/   brief.md, testi/, immagini/, checklist.md, esito.md, social-esito.json (scritto dallo script)
 luino-notizie/   AAAA-nome-campagna.md (mail pronta, spedita a mano)
 templates/       calendario.md, brief.md, articolo-blog.html, post-social.md, whatsapp-famiglie.md, email-luino-notizie.md, checklist.md, esito.md
+app/ lib/ components/   web app Sheepper (Next.js 16, TypeScript, Tailwind 4); package.json, tsconfig.json, eslint.config.mjs, vitest.config.ts alla radice
 scripts/         _common.py, check_setup.py, stato_campagne.py, publish_post.py, publish_social.py, to_jpeg.py, upload_media.py, test_deepseek.py
 .claude/agents/  .claude/commands/
 ```
@@ -90,7 +92,8 @@ Il progetto adotta il framework [my-ai-squad](https://github.com/matteopelucco/m
 - Le issue `status:ready` si lavorano per priorità del Project (più in alto = prima); a parità, prima i `type:bug`.
 
 ### Controlli
-- Rapidi (a fine lavoro) e completi (prima della PR): `python -B -c "import ast,glob;[ast.parse(open(f,encoding='utf-8').read()) for f in glob.glob('scripts/*.py')]"` (controllo di sintassi degli script; `.claude/squad.json` è la fonte). La CI (`.github/workflows/ci.yml`, job `verifica`) esegue lo stesso comando sulle PR che toccano codice e lo salta se cambiano solo documenti.
+- Rapidi (a fine lavoro): `npm run typecheck && npm run lint && npm run test:unit` più il controllo di sintassi degli script Python, finché esistono: `python -B -c "import ast,glob;[ast.parse(open(f,encoding='utf-8').read()) for f in glob.glob('scripts/*.py')]"`. `.claude/squad.json` (`verify`) è la fonte.
+- Completi (prima della PR): come i rapidi più `npm run build` (`verifyFull`). `npm run analyze` esegue lint, typecheck e test. La CI (`.github/workflows/ci.yml`, job `verifica`) fa `npm ci` ed esegue `verifyFull` sulle PR che toccano codice; lo salta se cambiano solo documenti.
 - La PR riporta comando ed esito dei controlli e ciò che non è stato verificato.
 
 ## Setup standard di progetto e web app Sheepper
@@ -115,3 +118,13 @@ sopra resta la specifica funzionale finché Sheepper non ha la stessa funzionali
 
 ## Lavorare su Drive
 Niente ambienti virtuali o cache dentro la cartella (`PYTHONDONTWRITEBYTECODE=1`); non toccare i file `~$*` (aperti in Office); un solo editor alla volta sullo stesso file, per evitare copie in conflitto.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
