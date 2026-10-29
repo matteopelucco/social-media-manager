@@ -158,3 +158,5 @@ Lo scheletro della web app Sheepper (Next.js 16) sta alla radice del repository.
 4. Apri http://127.0.0.1:3000 (il server ascolta solo sul tuo computer).
 
 Controlli: `npm run analyze` (lint, typecheck, test); `npm run build` per la build di produzione. Dettagli in `docs/adr/0002-web-app-locale-nextjs-e-filesystem.md` e `docs/piano-webapp.md`.
+
+**Avvio con un doppio clic (Windows).** Fai doppio clic su `avvia-sheepper.cmd` alla radice del repository. Lo script controlla che Node 22+ sia installato (altrimenti ti dice dove scaricarlo), installa le dipendenze se mancano, prepara l'app la prima volta e apre il browser su http://127.0.0.1:3000. Per fermare Sheepper chiudi la finestra nera. Dopo un aggiornamento del codice avvia `avvia-sheepper.cmd --rebuild` per rifare la build.
