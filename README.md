@@ -99,6 +99,7 @@ Di solito non li lanci tu: lo fanno i comandi. Li trovi in `scripts/`; ognuno ha
 | `publish_social.py` | Anteprima o pubblicazione di **un** post Facebook/Instagram | `--publish` richiede `--approved-code`; `--check` mostra tipo, permessi e scadenza del token |
 | `to_jpeg.py` | Converte un'immagine in JPEG per Instagram (`--pad-to 4:5` per aggiungere bordo senza ritagliare) | Non sovrascrive originali; toglie i metadati EXIF/GPS |
 | `upload_media.py` | Carica **un** file nei media di WordPress e stampa l'URL | Non sostituisce media esistenti; prima `--dry-run` |
+| `test_deepseek.py` | Prova la connessione all'API di DeepSeek (un prompt semplice, stampa la risposta) | Chiave `deepseek_api_key` in `config.yaml`; solo testo di prova, mai dati personali |
 | `_common.py` | Funzioni condivise (configurazione, errori) | Non si lancia da solo |
 
 Esempio completo per Instagram:

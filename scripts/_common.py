@@ -20,6 +20,9 @@ ENV_MAP = {
     "fb_page_token": "FB_PAGE_TOKEN",
     "ig_user_id": "IG_USER_ID",
     "graph_version": "GRAPH_VERSION",
+    "deepseek_api_key": "DEEPSEEK_API_KEY",
+    "deepseek_model": "DEEPSEEK_MODEL",
+    "deepseek_base_url": "DEEPSEEK_BASE_URL",
 }
 GROUPS = {
     "wordpress": ("wp_url", "wp_user", "wp_app_password"),
