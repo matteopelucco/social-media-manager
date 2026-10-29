@@ -1,15 +1,29 @@
 {
-  "verify": "python -B -c \"import ast,glob;[ast.parse(open(f,encoding=\u0027utf-8\u0027).read()) for f in glob.glob(\u0027scripts/*.py\u0027)]\"",
-  "verifyFull": "python -B -c \"import ast,glob;[ast.parse(open(f,encoding=\u0027utf-8\u0027).read()) for f in glob.glob(\u0027scripts/*.py\u0027)]\"",
+  "verify": "npm run typecheck && npm run lint && npm run test:unit && python -B -c \"import ast,glob;[ast.parse(open(f,encoding='utf-8').read()) for f in glob.glob('scripts/*.py')]\"",
+  "verifyFull": "npm run typecheck && npm run lint && npm run test:unit && python -B -c \"import ast,glob;[ast.parse(open(f,encoding='utf-8').read()) for f in glob.glob('scripts/*.py')]\" && npm run build",
   "mergeMode": "human",
   "budget": {
-    "caps": { "fiveHour": 80, "weekly": 85, "context": 60 },
-    "costPerTask": { "fiveHour": 10, "weekly": 3 },
+    "caps": {
+      "fiveHour": 80,
+      "weekly": 85,
+      "context": 60
+    },
+    "costPerTask": {
+      "fiveHour": 10,
+      "weekly": 3
+    },
     "fallbackTasks": 2,
     "maxTasksWithoutN": 5
   },
   "writeScopes": {
-    "product-analyst": ["docs/", "specs/"],
-    "test-engineer": ["tests/", "test/", "e2e/"]
+    "product-analyst": [
+      "docs/",
+      "specs/"
+    ],
+    "test-engineer": [
+      "tests/",
+      "test/",
+      "e2e/"
+    ]
   }
 }
